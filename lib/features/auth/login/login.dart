@@ -3,6 +3,9 @@
 import 'package:e_commerce/core/util/validation_util.dart';
 import 'package:e_commerce/features/auth/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../core/routing/routes_names.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -29,8 +32,6 @@ class _LoginState extends State<Login> {
     _password.dispose();
     super.dispose();
   }
-
-  bool _checkCanProccess = false;
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +130,7 @@ class _LoginState extends State<Login> {
                       if (_formKey.currentState!.validate()) {
                         setState(() {
                           state = 'call servier';
+                          context.pushNamed(RoutesNames.login);
                         });
                       }
                     },
