@@ -1,5 +1,5 @@
 import 'package:e_commerce/core/theme/color_manager.dart';
-import 'package:e_commerce/core/theme/font_weight_helper.dart';
+import 'package:e_commerce/core/theme/style_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,7 +18,7 @@ class AppFormTextField extends StatelessWidget {
   final TextEditingController controller;
   final String? hint;
   final String? Function(String?)? validator;
-  final Icon? prefixIcon;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextInputType? textInputType;
   final bool obscureText;
@@ -37,11 +37,7 @@ class AppFormTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         hintText: hint,
-        hintStyle: TextStyle(
-          color: ColorManager.lightGray,
-          fontSize: 16.sp,
-          fontWeight: FontWeightHelper.regular,
-        ),
+        hintStyle: StyleManager.lighterGray16Regular,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: ColorManager.moreLighterGray),

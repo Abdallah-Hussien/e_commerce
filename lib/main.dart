@@ -5,4 +5,3 @@ import 'ecommerce_app.dart';
 void main() {
   runApp(const EcommerceApp());
 }
-

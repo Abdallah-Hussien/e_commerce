@@ -2,6 +2,7 @@
 
 import 'package:e_commerce/core/helpers/spacing.dart';
 import 'package:e_commerce/core/theme/font_weight_helper.dart';
+import 'package:e_commerce/core/theme/style_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,20 +49,16 @@ class _RegisterState extends State<Register> {
                 verticalSpace(
                   59,
                 ),
-                Text('Register to your account',
-                    style: TextStyle(
-                      fontSize: 32.sp,
-                      fontWeight: FontWeightHelper.semiBold,
-                    )),
+                Text(
+                  'Register to your account',
+                  style: StyleManager.dark32SmiBold,
+                ),
                 verticalSpace(
                   8,
                 ),
                 Text(
                   'It’s great to see you again.',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeightHelper.regular,
-                  ),
+                  style: StyleManager.lightGray16Regular,
                 ),
                 verticalSpace(
                   25,
@@ -72,7 +69,11 @@ class _RegisterState extends State<Register> {
                 ),
                 CustomButton(
                   onPressed: () {
-                    if (context.read<RegisterCubit>().formKey.currentState!.validate()) {
+                    if (context
+                        .read<RegisterCubit>()
+                        .formKey
+                        .currentState!
+                        .validate()) {
                       context.read<RegisterCubit>().myemit();
                     }
                   },
@@ -87,4 +88,3 @@ class _RegisterState extends State<Register> {
     );
   }
 }
-

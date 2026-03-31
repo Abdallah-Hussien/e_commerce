@@ -1,5 +1,6 @@
 import 'package:e_commerce/core/helpers/extension.dart';
 import 'package:e_commerce/core/theme/font_weight_helper.dart';
+import 'package:e_commerce/core/theme/style_manager.dart';
 import 'package:e_commerce/core/util/validation_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,8 +18,8 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-    bool isPasswordHiden = true;
-    bool isConfirmPasswordHiden = true;
+  bool isPasswordHiden = true;
+  bool isConfirmPasswordHiden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,7 @@ class _RegisterFormState extends State<RegisterForm> {
         children: [
           Text(
             'User Name',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeightHelper.medium,
-            ),
+            style: StyleManager.dark16Medium,
           ),
           verticalSpace(
             4,
@@ -52,10 +50,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           Text(
             'User Email',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeightHelper.medium,
-            ),
+            style: StyleManager.dark16Medium,
           ),
           verticalSpace(
             4,
@@ -78,10 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           Text(
             'Password',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeightHelper.medium,
-            ),
+            style: StyleManager.dark16Medium,
           ),
           verticalSpace(
             4,
@@ -115,10 +107,7 @@ class _RegisterFormState extends State<RegisterForm> {
           verticalSpace(16),
           Text(
             'Confirm Password',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeightHelper.medium,
-            ),
+            style: StyleManager.dark16Medium,
           ),
           verticalSpace(
             4,

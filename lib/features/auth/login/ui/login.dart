@@ -2,6 +2,7 @@
 
 import 'package:e_commerce/core/helpers/spacing.dart';
 import 'package:e_commerce/core/theme/font_weight_helper.dart';
+import 'package:e_commerce/core/theme/style_manager.dart';
 import 'package:e_commerce/features/auth/login/logic/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,20 +49,16 @@ class _LoginState extends State<Login> {
                 verticalSpace(
                   59,
                 ),
-                Text('Login to your account',
-                    style: TextStyle(
-                      fontSize: 32.sp,
-                      fontWeight: FontWeightHelper.semiBold,
-                    )),
+                Text(
+                  'Login to your account',
+                  style: StyleManager.dark32SmiBold,
+                ),
                 verticalSpace(
                   8,
                 ),
                 Text(
                   'It’s great to see you again.',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeightHelper.regular,
-                  ),
+                  style: StyleManager.lightGray16Regular,
                 ),
                 verticalSpace(
                   25,

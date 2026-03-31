@@ -1,6 +1,7 @@
 import 'package:e_commerce/core/helpers/extension.dart';
 import 'package:e_commerce/core/theme/color_manager.dart';
 import 'package:e_commerce/core/theme/font_weight_helper.dart';
+import 'package:e_commerce/core/theme/style_manager.dart';
 import 'package:e_commerce/core/util/validation_util.dart';
 import 'package:e_commerce/features/auth/login/logic/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,8 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'User Name',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeightHelper.medium,
-            ),
+            'User Email',
+            style: StyleManager.dark16Medium,
           ),
           verticalSpace(
             4,
@@ -53,10 +51,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           Text(
             'Password',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeightHelper.medium,
-            ),
+            style: StyleManager.dark16Medium,
           ),
           verticalSpace(
             4,
