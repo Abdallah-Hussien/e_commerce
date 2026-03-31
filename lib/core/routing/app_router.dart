@@ -1,6 +1,7 @@
 import 'package:e_commerce/features/auth/login/logic/cubit/login_cubit.dart';
 import 'package:e_commerce/features/auth/login/ui/login.dart';
 import 'package:e_commerce/features/auth/register/logic/cubit/register_cubit.dart';
+import 'package:e_commerce/features/navigation_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,8 +10,13 @@ import 'routes_names.dart';
 
 class AppRouter {
   static final generateRoute = GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/navigation',
     routes: [
+      GoRoute(
+        path: RoutesNames.navigation,
+        name: RoutesNames.navigation,
+        builder: (context, state) => const NavigationScreen(),
+      ),
       GoRoute(
         path: RoutesNames.login,
         name: RoutesNames.login,

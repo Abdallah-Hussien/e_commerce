@@ -2,6 +2,7 @@
 
 import 'package:e_commerce/core/routing/routes_names.dart';
 import 'package:e_commerce/core/theme/color_manager.dart';
+import 'package:e_commerce/core/widgets/loading_layout.dart';
 import 'package:e_commerce/features/auth/login/logic/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,9 +17,9 @@ class LoginBlocListener extends StatelessWidget {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoading) {
-          setupLoginState(context);
+          LoadingLayout.setupLogin(context);
         } else if (state is LoginSuccess) {
-                    context.pop(context);
+          context.pop(context);
           context.pushReplacement(RoutesNames.register);
         } else if (state is LoginFailure) {
           context.pop(context);
@@ -30,24 +31,6 @@ class LoginBlocListener extends StatelessWidget {
         }
       },
       child: SizedBox.shrink(),
-    );
-  }
-
-  Future<dynamic> setupLoginState(BuildContext context) {
-    return showDialog(
-      barrierDismissible: false,
-      barrierColor: ColorManager.moreLighterGray.withOpacity(0.7),
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.transparent,
-          content: Lottie.asset(
-            'assets/lottie/loading.json',
-            width: 250,
-            height: 250,
-          ),
-        );
-      },
     );
   }
 }
