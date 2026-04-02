@@ -18,7 +18,7 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   int _currentIndex = 0;
   final List<Widget> screens = [
-    const HomeScreen(),
+    HomeScreen(),
     const CartScreen(),
     const AccountScreen(),
   ];
