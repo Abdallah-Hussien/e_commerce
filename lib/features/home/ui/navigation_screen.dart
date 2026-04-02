@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../core/helpers/spacing.dart';
-import '../core/theme/color_manager.dart';
-import 'cart/account/account_screen.dart';
-import 'cart/cart_screen.dart';
-import 'home/home_screen.dart';
+import '../../../core/helpers/spacing.dart';
+import '../../../core/theme/color_manager.dart';
+import '../../cart/account/account_screen.dart';
+import '../../cart/cart_screen.dart';
+import 'home_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
