@@ -1,10 +1,8 @@
 import 'package:e_commerce/core/helpers/extension.dart';
-import 'package:e_commerce/core/theme/font_weight_helper.dart';
 import 'package:e_commerce/core/theme/style_manager.dart';
 import 'package:e_commerce/core/util/validation_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/color_manager.dart';
 import '../../../../../core/widgets/app_form_text_field.dart';

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/helpers/spacing.dart';
-import '../../../core/theme/color_manager.dart';
-import '../../../core/widgets/app_form_text_field.dart';
+import '../../../../core/helpers/spacing.dart';
+import '../../../../core/theme/color_manager.dart';
+import '../../../../core/widgets/app_form_text_field.dart';
 
 class SerachandFilter extends StatelessWidget {
   SerachandFilter({super.key});
@@ -19,7 +19,7 @@ class SerachandFilter extends StatelessWidget {
             controller: controller,
             hint: 'Search for clothes...',
             prefixIcon: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(8.0),
               child: SvgPicture.asset(
                 'assets/icons/search.svg',
               ),

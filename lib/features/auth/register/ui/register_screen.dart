@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:e_commerce/core/helpers/spacing.dart';
-import 'package:e_commerce/core/theme/font_weight_helper.dart';
 import 'package:e_commerce/core/theme/style_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

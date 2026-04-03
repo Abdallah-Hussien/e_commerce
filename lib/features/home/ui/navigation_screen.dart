@@ -1,16 +1,18 @@
+import 'package:e_commerce/features/home/logic/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../core/helpers/spacing.dart';
-import '../core/theme/color_manager.dart';
-import 'cart/account/account_screen.dart';
-import 'cart/cart_screen.dart';
-import 'home/home_screen.dart';
+import '../../../core/di/dependancy_injection.dart';
+import '../../../core/helpers/spacing.dart';
+import '../../../core/theme/color_manager.dart';
+import '../../cart/account/account_screen.dart';
+import '../../cart/cart_screen.dart';
+import 'home_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
-
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
 }
@@ -18,7 +20,10 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   int _currentIndex = 0;
   final List<Widget> screens = [
-    HomeScreen(),
+    BlocProvider(
+      create: (context) => getIt<HomeCubit>()..getCategories(),
+      child: const HomeScreen(),
+    ),
     const CartScreen(),
     const AccountScreen(),
   ];
