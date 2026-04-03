@@ -31,8 +31,8 @@ class AppFormTextField extends StatelessWidget {
       keyboardType: textInputType,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
-          horizontal: 20.h,
-          vertical: 15.w,
+          horizontal: 20.w,
+          vertical: 15.h,
         ),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,

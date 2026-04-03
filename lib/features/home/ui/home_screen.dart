@@ -1,11 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:e_commerce/core/helpers/spacing.dart';
 import 'package:e_commerce/core/theme/style_manager.dart';
+import 'package:e_commerce/features/home/logic/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'widgets/categories_list/categories_list.dart';
+import 'widgets/categories_list/categories_bloc_builder.dart';
 import 'widgets/search_and_filter.dart';
-import 'widgets/selected_category/selected_category_gridview.dart';
+import 'widgets/selected_category/selected_categories_bloc_builder.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,16 +27,26 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 verticalSpace(60),
-                Text(
-                  'Discover',
-                  style: StyleManager.dark32SmiBold,
+                GestureDetector(
+                  onTap: () {
+                    context.read<HomeCubit>().getCategories();
+                  },
+                  child: Text(
+                    'Discover',
+                    style: StyleManager.dark32SmiBold,
+                  ),
                 ),
                 verticalSpace(16),
                 SerachandFilter(),
                 verticalSpace(16),
-                const CategoriesList(),
-                verticalSpace(23),
-                const SelectedCategoryGridView(),
+                Expanded(
+                    child: Column(
+                  children: [
+                    const CategoriesBlocBuilder(),
+                    verticalSpace(16),
+                    const SelectedCategoriesBlocBuilder(),
+                  ],
+                )),
               ],
             ),
           ),
@@ -41,4 +55,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-

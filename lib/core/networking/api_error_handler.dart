@@ -28,7 +28,7 @@ class ApiErrorHandler {
           return ApiErrorModel(message: 'Connection error', statusCode: '500');
       }
     } else {
-      return ApiErrorModel(message: 'Unknown error', statusCode: '500');
+      return ApiErrorModel(message: 'Logic error', statusCode: '500');
     }
   }
 
