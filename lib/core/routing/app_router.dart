@@ -1,11 +1,13 @@
+import 'package:e_commerce/core/di/dependancy_injection.dart';
 import 'package:e_commerce/features/auth/login/logic/cubit/login_cubit.dart';
 import 'package:e_commerce/features/auth/login/ui/login.dart';
 import 'package:e_commerce/features/auth/register/logic/cubit/register_cubit.dart';
-import 'package:e_commerce/features/home/ui/navigation_screen.dart';
+import 'package:e_commerce/navigation_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/register/ui/register_screen.dart';
+import '../../features/home/logic/cubit/home_cubit.dart';
 import 'routes_names.dart';
 
 class AppRouter {
@@ -15,7 +17,10 @@ class AppRouter {
       GoRoute(
         path: RoutesNames.navigation,
         name: RoutesNames.navigation,
-        builder: (context, state) => const NavigationScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<HomeCubit>()..getCategories(),
+          child: const NavigationScreen(),
+        ),
       ),
       GoRoute(
         path: RoutesNames.login,
