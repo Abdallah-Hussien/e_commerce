@@ -7,13 +7,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/register/ui/register_screen.dart';
+import '../../features/home/data/models/product_model.dart';
 import '../../features/home/logic/cubit/home_cubit.dart';
+import '../../features/product_details/product_details.dart';
 import 'routes_names.dart';
 
 class AppRouter {
   static final generateRoute = GoRouter(
-    initialLocation: '/navigation',
+    initialLocation: RoutesNames.navigation,
     routes: [
+      GoRoute(
+        path: RoutesNames.productDetails,
+        name: RoutesNames.productDetails,
+        builder: (context, state) {
+          final productModel = state.extra as ProductModel;
+          return ProductDetailsScreen(productModel: productModel);
+        },
+      ),
       GoRoute(
         path: RoutesNames.navigation,
         name: RoutesNames.navigation,
