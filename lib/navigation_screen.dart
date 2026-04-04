@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'core/helpers/spacing.dart';
 import 'core/theme/color_manager.dart';
-import 'features/cart/account/account_screen.dart';
+import 'features/account/account_screen.dart';
 import 'features/cart/cart_screen.dart';
 import 'features/home/ui/home_screen.dart';
 
@@ -84,7 +84,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           ),
         ),
         body: IndexedStack(
-          index: _currentIndex, // ← Keeps all tabs mounted
+          index: 1, // ← Keeps all tabs mounted
           children:const [HomeScreen(), CartScreen(), AccountScreen()],
         ),
       ),

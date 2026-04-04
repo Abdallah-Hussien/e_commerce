@@ -24,6 +24,16 @@ class StyleManager {
     color: ColorManager.lightGray,
   );
 
+  static TextStyle lightGray12Regular = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: ColorManager.lightGray,
+  );
+  static TextStyle dark16Regular = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: ColorManager.mainDark,
+  );
   static TextStyle lightGray16Medium = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.medium,
@@ -37,6 +47,11 @@ class StyleManager {
   );
     static TextStyle dark16SemiBold = TextStyle(
     fontSize: 16.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    color: ColorManager.mainDark,
+  );
+      static TextStyle dark14SemiBold = TextStyle(
+    fontSize: 14.sp,
     fontWeight: FontWeightHelper.semiBold,
     color: ColorManager.mainDark,
   );
