@@ -1,6 +1,9 @@
+import 'package:e_commerce/core/routing/app_router.dart';
+import 'package:e_commerce/core/routing/routes_names.dart';
 import 'package:e_commerce/features/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import 'selected_category_gridview_item.dart';
 
@@ -25,8 +28,17 @@ class SelectedCategoryGridView extends StatelessWidget {
           childAspectRatio: 2.13 / 3,
         ),
         itemBuilder: (context, index) {
-          return SelectedCategoryGridViewItem(
-            product: products[index],
+          return GestureDetector(
+            onTap: () {
+              // Handle tap event
+              context.pushNamed(
+                RoutesNames.productDetails,
+                extra: products[index],
+              );
+            },
+            child: SelectedCategoryGridViewItem(
+              product: products[index],
+            ),
           );
         },
       ),
