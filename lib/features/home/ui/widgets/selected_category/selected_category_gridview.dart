@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../product_details/product_details.dart';
 import 'selected_category_gridview_item.dart';
 
 class SelectedCategoryGridView extends StatelessWidget {

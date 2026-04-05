@@ -1,75 +1,96 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:developer';
+
 import 'package:e_commerce/core/helpers/spacing.dart';
 import 'package:e_commerce/core/theme/color_manager.dart';
 import 'package:e_commerce/core/theme/style_manager.dart';
-import 'package:e_commerce/core/widgets/custom_button.dart';
+import 'package:e_commerce/features/cart/logic/cart_cubit/cart_cubit.dart';
+import 'package:e_commerce/features/cart/logic/cart_cubit/cart_state.dart';
+import 'package:e_commerce/features/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../core/widgets/custom_button.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            onPressed: () {
+              context.pop();
+            },
+            icon: SvgPicture.asset(
+              'assets/icons/arrow_back.svg',
+            ),
+          ),
+          centerTitle: true,
+          title: Text(
+            'My Cart',
+            style: StyleManager.dark16SemiBold,
+          ),
+        ),
         body: Padding(
-      padding: EdgeInsets.all(24),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                BackButtonAndHeader(),
-                verticalSpace(16),
-              ],
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => CartListItem(),
-              childCount: 5, // Replace with actual item count
-            ),
-          ),
-          // SliverFillRemaining(
-          //   child: ListView.builder(
-          //     shrinkWrap: true,
-          //     itemCount: 5, // Replace with actual item count
-          //     itemBuilder: (context, index) {
-          //       return CartListItem();
-          //     },
-          //   ),
-          // ),
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                verticalSpace(30),
-                MoneyDetails(),
-                verticalSpace(54.h),
-                CustomButton(
-                  onPressed: () {},
-                  text: 'Go To Checkout',
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: verticalSpace(26),
+              ),
+              BlocBuilder<CartCubit, CartState>(
+                builder: (context, state) {
+                  var cartList = context.read<CartCubit>().cart;
+                  return SliverList.builder(
+                    itemCount: cartList.length,
+                    itemBuilder: (context, index) {
+                      return CartListItem(
+                        productModel: cartList[index],
+                      );
+                    },
+                  );
+                },
+              ),
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    verticalSpace(30),
+                    MoneyDetails(),
+                    verticalSpace(54.h),
+                    CustomButton(
+                      onPressed: () {},
+                      text: 'Go To Checkout',
+                    ),
+                    verticalSpace(30),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-    ));
+    );
   }
 }
 
 class CartListItem extends StatelessWidget {
   const CartListItem({
     super.key,
+    required this.productModel,
   });
-
+  final ProductModel productModel;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 190.h,
+      height: 195.h,
       margin: EdgeInsetsDirectional.symmetric(vertical: 8),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
@@ -83,8 +104,8 @@ class CartListItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Image.asset(
-              'assets/images/shoes.png',
+            child: Image.network(
+              productModel.images,
               width: 83.w,
               // height: 80.h,
               fit: BoxFit.cover,
@@ -97,19 +118,27 @@ class CartListItem extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      'Regular Fit Slogan',
-                      style: StyleManager.dark14SemiBold,
+                    SizedBox(
+                      width: 150.w,
+                      child: Text(
+                        productModel.title,
+                        style: StyleManager.dark14SemiBold,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     Spacer(),
+                    horizontalSpace(2),
                     IconButton(
                       onPressed: () {},
                       icon: SvgPicture.asset(
+                        width: 23.w,
+                        height: 22.h,
                         'assets/icons/trash.svg',
                       ),
                     ),
                   ],
                 ),
+                verticalSpace(3),
                 Text(
                   'size: L',
                   style: StyleManager.lightGray12Regular,
@@ -119,7 +148,7 @@ class CartListItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '150 EGP',
+                      '\$${productModel.price}',
                       style: StyleManager.dark14SemiBold,
                     ),
                     Spacer(),
@@ -236,50 +265,6 @@ class MoneyDetails extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class BackButtonAndHeader extends StatelessWidget {
-  const BackButtonAndHeader({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          Expanded(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                const Text(
-                  'Cart',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black87,
-                  ),
-                ),
-                // Back Button
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    onPressed: () {
-                      context.pop();
-                    },
-                    icon: SvgPicture.asset(
-                      'assets/icons/arrow_back.svg',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

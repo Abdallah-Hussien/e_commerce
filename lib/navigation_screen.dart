@@ -41,7 +41,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
             vertical: 16.h,
             horizontal: 20.w,
           ),
-          color: ColorManager.moreLighterGray.withOpacity(0.8),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              top: BorderSide(
+                color: ColorManager.moreLighterGray,
+              ),
+            ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -84,8 +91,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
           ),
         ),
         body: IndexedStack(
-          index: 1, // ← Keeps all tabs mounted
-          children:const [HomeScreen(), CartScreen(), AccountScreen()],
+          index: _currentIndex, // ← Keeps all tabs mounted
+          children: const [HomeScreen(), CartScreen(), AccountScreen()],
         ),
       ),
     );
