@@ -34,7 +34,6 @@ class HomeScreen extends StatelessWidget {
                   },
                   child: GestureDetector(
                     onTap: () {
-                      context.read<CartCubit>().test();
                     },
                     child: Text(
                       'Discover',

@@ -7,19 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(InitialState(cartList: []));
   var cart = <ProductModel>[];
+  var sub_total = 0.0;
+  var total = 0.0;
   addToCart(ProductModel product) {
     cart.add(product);
+    sub_total += product.price;
+    total = sub_total + (sub_total * 0.14)+50;
     emit(AddToCartState(cartList: []));
-    log('AddToCartState: ${cart.length} items in cart', name: 'CartCubit');
+    // log('AddToCartState: ${cart.length} items in cart', name: 'CartCubit');
   }
-
-test(){
-  log('test: ${cart.length} items in cart', name: 'CartTest');
-  emit(AddToCartState(cartList: []));
-}
   removeFromCart(ProductModel product) {
     cart.remove(product);
-    emit(RemoveFromCartState(cartList: cart));
-    log('RemoveFromCartState: ${cart.length} items in cart', name: 'CartCubit');
+    sub_total -= product.price;
+    total = sub_total + (sub_total * 0.14)+50;
+    emit(RemoveFromCartState(cartList: []));
+    // log('RemoveFromCartState: ${cart.length} items in cart', name: 'CartCubit');
   }
 }

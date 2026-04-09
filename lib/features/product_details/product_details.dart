@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/helpers/spacing.dart';
 import 'package:e_commerce/core/theme/color_manager.dart';
@@ -84,16 +85,22 @@ class ProductDetailsScreen extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: () {
                         context.read<CartCubit>().addToCart(productModel);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('${productModel.title} added to cart!'),
-                            duration: Duration(seconds: 1),
+                        var snackbar = SnackBar(
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: 'Success',
+                            message: 'Product added to cart successfully!',
+                            contentType: ContentType.success,
                           ),
+                          duration: Duration(seconds: 1),
                         );
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar
+                          ..showSnackBar(snackbar);
                       },
                       icon: SvgPicture.asset(
                         'assets/icons/add_to_cart.svg',
+                        
                       ),
                       label: const Text(
                         'Add to Cart',

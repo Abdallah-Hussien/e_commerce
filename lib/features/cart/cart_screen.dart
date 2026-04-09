@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:developer';
-
 import 'package:e_commerce/core/helpers/spacing.dart';
 import 'package:e_commerce/core/theme/color_manager.dart';
 import 'package:e_commerce/core/theme/style_manager.dart';
@@ -12,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../core/widgets/custom_button.dart';
 
@@ -25,14 +23,6 @@ class CartScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          leading: IconButton(
-            onPressed: () {
-              context.pop();
-            },
-            icon: SvgPicture.asset(
-              'assets/icons/arrow_back.svg',
-            ),
-          ),
           centerTitle: true,
           title: Text(
             'My Cart',
@@ -41,39 +31,85 @@ class CartScreen extends StatelessWidget {
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: verticalSpace(26),
-              ),
-              BlocBuilder<CartCubit, CartState>(
-                builder: (context, state) {
-                  var cartList = context.read<CartCubit>().cart;
-                  return SliverList.builder(
-                    itemCount: cartList.length,
-                    itemBuilder: (context, index) {
-                      return CartListItem(
-                        productModel: cartList[index],
-                      );
-                    },
-                  );
-                },
-              ),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    verticalSpace(30),
-                    MoneyDetails(),
-                    verticalSpace(54.h),
-                    CustomButton(
-                      onPressed: () {},
-                      text: 'Go To Checkout',
+          child: BlocBuilder<CartCubit, CartState>(
+            builder: (context, state) {
+              if (state is InitialState ||
+                  context.read<CartCubit>().cart.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart,
+                        size: 100.w,
+                        color: ColorManager.mainBlue,
+                      ),
+                      verticalSpace(20),
+                      Text(
+                        'Your cart is empty',
+                        style: StyleManager.dark16Medium,
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                final cartList = context.read<CartCubit>().cart;
+                return CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: verticalSpace(26),
                     ),
-                    verticalSpace(30),
+                    SliverToBoxAdapter(
+                      child: Column(
+                        children: [
+                          Column(
+                            children: List.generate(
+                              cartList.length,
+                              (index) => CartListItem(
+                                productModel: cartList[index],
+                              ),
+                            ).toList(),
+                          ),
+                          verticalSpace(30),
+                          MoneyDetails(),
+                        ],
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Column(
+                        children: [
+                          verticalSpace(54.h),
+                          CustomButton(
+                            onPressed: () {
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors.white,
+                                    title: Text('Checkout'),
+                                    content: Lottie.asset(
+                                      'assets/lottie/shopping_cart.json',
+                                      width: 150,
+                                      height: 150,
+                                    ),
+                                  );
+                                },
+                              );
+                              Future.delayed(Duration(milliseconds: 2260), () {
+                                Navigator.of(context).pop();
+                              });
+                            },
+                            text: 'Go To Checkout',
+                          ),
+                          verticalSpace(30),
+                        ],
+                      ),
+                    ),
                   ],
-                ),
-              ),
-            ],
+                );
+              }
+            },
           ),
         ),
       ),
@@ -106,12 +142,12 @@ class CartListItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: Image.network(
               productModel.images,
-              width: 83.w,
-              // height: 80.h,
+              width: 80.w,
+              height: 110.h,
               fit: BoxFit.cover,
             ),
           ),
-          horizontalSpace(6),
+          horizontalSpace(10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,9 +163,14 @@ class CartListItem extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    horizontalSpace(2),
                     IconButton(
-                      onPressed: () {},
+                      style: IconButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        minimumSize: Size(23.w, 22.h),
+                      ),
+                      onPressed: () {
+                        context.read<CartCubit>().removeFromCart(productModel);
+                      },
                       icon: SvgPicture.asset(
                         width: 23.w,
                         height: 22.h,
@@ -138,13 +179,12 @@ class CartListItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                verticalSpace(3),
                 Text(
                   'size: L',
                   style: StyleManager.lightGray12Regular,
                 ),
-                verticalSpace(18),
-                Spacer(),
+                verticalSpace(10),
+                // Spacer(),
                 Row(
                   children: [
                     Text(
@@ -211,7 +251,7 @@ class MoneyDetails extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              'data',
+              '${context.read<CartCubit>().sub_total.toStringAsFixed(2)} EGP',
               style: StyleManager.dark16Medium,
             ),
           ],
@@ -225,7 +265,7 @@ class MoneyDetails extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              'data',
+              '14%',
               style: StyleManager.dark16Medium,
             ),
           ],
@@ -239,7 +279,7 @@ class MoneyDetails extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              'data',
+              '50 EGP',
               style: StyleManager.dark16Medium,
             ),
           ],
@@ -259,7 +299,7 @@ class MoneyDetails extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              'data',
+              '${context.read<CartCubit>().total.toStringAsFixed(2)} EGP',
               style: StyleManager.dark16SemiBold,
             ),
           ],

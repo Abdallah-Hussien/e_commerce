@@ -1,5 +1,4 @@
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_commerce/features/home/logic/cubit/home_cubit.dart';
 import 'package:e_commerce/features/home/ui/widgets/categories_list/categories_list.dart';
 import 'package:e_commerce/features/home/ui/widgets/categories_list/categories_list_shimmer.dart';
@@ -17,18 +16,11 @@ class CategoriesBlocBuilder extends StatelessWidget {
       },
       listener: (context, state) {
         if (state is Error) {
-          AwesomeDialog(
-            context: context,
-            dismissOnTouchOutside: false,
-            animType: AnimType.leftSlide,
-            dialogType: DialogType.noHeader,
-            title: 'Failed',
-            desc: 'Failed to load categories. Retry OR Cancel.',
-            btnOkText: 'Retry',
-            btnOkOnPress: () {},
-            btnCancelText: 'Cancel',
-            btnCancelOnPress: () {},
-          ).show();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+            ),
+          );
         }
       },
       buildWhen: (previous, current) {
