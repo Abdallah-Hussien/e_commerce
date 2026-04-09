@@ -126,7 +126,7 @@ class CartListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 195.h,
+      height: 160.h,
       margin: EdgeInsetsDirectional.symmetric(vertical: 8),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
