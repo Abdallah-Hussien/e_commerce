@@ -1,4 +1,3 @@
-import 'package:e_commerce/core/routing/app_router.dart';
 import 'package:e_commerce/core/routing/routes_names.dart';
 import 'package:e_commerce/features/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/register/ui/register_screen.dart';
+import '../../features/cart/logic/cart_cubit/cart_cubit.dart';
 import '../../features/home/data/models/product_model.dart';
 import '../../features/home/logic/cubit/home_cubit.dart';
 import '../../features/product_details/product_details.dart';
@@ -21,14 +22,24 @@ class AppRouter {
         name: RoutesNames.productDetails,
         builder: (context, state) {
           final productModel = state.extra as ProductModel;
-          return ProductDetailsScreen(productModel: productModel);
+          return BlocProvider.value(
+            value: getIt<CartCubit>(),
+            child: ProductDetailsScreen(productModel: productModel),
+          );
         },
       ),
       GoRoute(
         path: RoutesNames.navigation,
         name: RoutesNames.navigation,
-        builder: (context, state) => BlocProvider(
-          create: (context) => getIt<HomeCubit>()..getCategories(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<HomeCubit>()..getCategories(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<CartCubit>(),
+            ),
+          ],
           child: const NavigationScreen(),
         ),
       ),

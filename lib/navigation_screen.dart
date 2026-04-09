@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'core/helpers/spacing.dart';
 import 'core/theme/color_manager.dart';
-import 'features/cart/account/account_screen.dart';
+import 'features/account/account_screen.dart';
 import 'features/cart/cart_screen.dart';
 import 'features/home/ui/home_screen.dart';
 
@@ -41,7 +41,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
             vertical: 16.h,
             horizontal: 20.w,
           ),
-          color: ColorManager.moreLighterGray.withOpacity(0.8),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              top: BorderSide(
+                color: ColorManager.moreLighterGray,
+              ),
+            ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -85,7 +92,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         ),
         body: IndexedStack(
           index: _currentIndex, // ← Keeps all tabs mounted
-          children:const [HomeScreen(), CartScreen(), AccountScreen()],
+          children: const [HomeScreen(), CartScreen(), AccountScreen()],
         ),
       ),
     );

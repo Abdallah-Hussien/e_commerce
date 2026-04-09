@@ -1,15 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/helpers/spacing.dart';
 import 'package:e_commerce/core/theme/color_manager.dart';
 import 'package:e_commerce/features/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/theme/font_weight_helper.dart';
+import '../cart/logic/cart_cubit/cart_cubit.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key, required this.productModel});
@@ -81,10 +84,23 @@ class ProductDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        // /TODO: Implement add to cart functionality
+                        context.read<CartCubit>().addToCart(productModel);
+                        var snackbar = SnackBar(
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: 'Success',
+                            message: 'Product added to cart successfully!',
+                            contentType: ContentType.success,
+                          ),
+                          duration: Duration(seconds: 1),
+                        );
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar
+                          ..showSnackBar(snackbar);
                       },
                       icon: SvgPicture.asset(
                         'assets/icons/add_to_cart.svg',
+                        
                       ),
                       label: const Text(
                         'Add to Cart',

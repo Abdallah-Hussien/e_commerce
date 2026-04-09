@@ -2,6 +2,7 @@
 
 import 'package:e_commerce/core/helpers/spacing.dart';
 import 'package:e_commerce/core/theme/style_manager.dart';
+import 'package:e_commerce/features/cart/logic/cart_cubit/cart_cubit.dart';
 import 'package:e_commerce/features/home/logic/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +32,13 @@ class HomeScreen extends StatelessWidget {
                   onTap: () {
                     context.read<HomeCubit>().getCategories();
                   },
-                  child: Text(
-                    'Discover',
-                    style: StyleManager.dark32SmiBold,
+                  child: GestureDetector(
+                    onTap: () {
+                    },
+                    child: Text(
+                      'Discover',
+                      style: StyleManager.dark32SmiBold,
+                    ),
                   ),
                 ),
                 verticalSpace(16),

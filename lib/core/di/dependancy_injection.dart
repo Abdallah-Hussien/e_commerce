@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../../features/cart/logic/cart_cubit/cart_cubit.dart';
 import '../../features/home/data/repo/home_repo.dart';
 import '../../features/home/logic/cubit/home_cubit.dart';
 import '../networking/api_services.dart';
@@ -14,4 +15,6 @@ void setupGet() async{
   getIt.registerLazySingleton(() => HomeRepo(apiServices: getIt()));
   // home cubit
   getIt.registerFactory(() => HomeCubit(homeRepo: getIt()));
+  // cart cubit
+  getIt.registerLazySingleton(() => CartCubit());
 }
