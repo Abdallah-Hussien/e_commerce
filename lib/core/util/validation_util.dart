@@ -1,4 +1,6 @@
 class ValidationUtil {
+  ValidationUtil._();
+
   /// @usage: validate entered Eg phone number based on used regex.
   /// @param phoneNumber A String containing the user's Eg phone number
   /// @return A Boolean value that is determined based on used regex
